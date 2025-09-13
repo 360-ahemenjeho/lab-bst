@@ -20,8 +20,25 @@ function printTree(node, prefix = "", isLeft = true) {
   printTree(node.right, prefix + (isLeft ? "│   " : "    "), false);
 }
 
+function levelOrder(head) {
+  const queue = [];
+  queue.push(head);
+
+  const len = queue.length;
+  while (len > 0) {
+    const current = queue[0];
+    if (!current) return;
+    console.log(current.value);
+    const left = current.left;
+    const right = current.right;
+    if (left) queue.push(left);
+    if (right) queue.push(right);
+    queue.shift();
+  }
+}
+
 /**
- * visualizing callstack
+ * visualizing `buildBST` callstack
  * input -> [1, 2, 3, 4, 5, 6, 7]
  * pt()
  *  4
@@ -41,3 +58,4 @@ function printTree(node, prefix = "", isLeft = true) {
 
 const bst = buildBST(sortedList);
 // printTree(bst);
+levelOrder(bst);
